@@ -1,7 +1,10 @@
 import React from 'react'
+import ToDoApp from './ToDoApp'
 
 export default function App() {
   return (
-    <div>App</div>
+    <div>
+      <ToDoApp/>
+    </div>
   )
 }
