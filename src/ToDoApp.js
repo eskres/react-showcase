@@ -4,35 +4,39 @@ function NewToDo({newToDo}) {
   const [text, setText] = useState("")
   
   return (
-    <div className="container">
-      <label for="newToDo">New to-do:</label>
-      <input className="form-control" id="newToDo" onChange={(e) => {setText(e.target.value)}}/>
-      <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {newToDo(text)}}
-      >
-        Save
-      </button>
-    </div>
+      <div className="row mb-4 gx-2 justify-content-end">
+        <div className="col">
+          <div className="form-floating">
+            <textarea className="form-control" id="newToDo" value={text} onChange={(e) => {setText(e.target.value)}}/>
+            <label for="newToDo">New to-do:</label>
+          </div>
+        </div>
+        <div className="d-grid col-3">
+          <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {newToDo(text); setText("")}}
+          >
+            Save
+          </button>
+        </div>
+      </div>
   )
 }
 
 function ToDos({toDos, delToDo, editToDo}) {
   return (
-    <div className="container">
-      <ul>
-        {toDos.map((toDo) => (
-          <li key={toDo.id}>
-            <ToDo
-              toDo={toDo}
-              delToDo={delToDo}
-              editToDo={editToDo}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      {toDos.map((toDo) => (
+        <div className="row mx-0 mt-2 pt-2 border-top gx-2" key={toDo.id}>
+          <ToDo
+            toDo={toDo}
+            delToDo={delToDo}
+            editToDo={editToDo}
+          />
+        </div>
+      ))}
+    </>
   )
 }
 
@@ -40,56 +44,68 @@ function ToDo({toDo, delToDo, editToDo}) {
 
   const [edit, setEdit] = useState(false);
 
-  let toDoText;
+  let toDoItem;
 
   if (edit) {
-    toDoText = (
+    toDoItem = (
       <>
-        <input
+      <div className="col">
+        <textarea
+          className="form-control"
+          type="text"
           value={toDo.text}
           onChange={(e) => {editToDo({...toDo, text: e.target.value})}}
         />
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => setEdit(false)}
-        >
-          Save
-        </button>
+      </div>
+        <div className="d-grid col-3">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => setEdit(false)}
+          >
+            Save
+          </button>
+        </div>
       </>
     )
   } else {
-    toDoText = (
+    toDoItem = (
       <>
-        {toDo.text}
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => {setEdit(true)}}
-        >
-          Edit
-        </button>
+        <div className="form-check col">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            value={toDo.done}
+            id={toDo.id}
+            onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
+          />
+          <label className="form-check-label" for={toDo.id}>{toDo.text}</label>
+        </div>
+        <div className="col pe-0 text-end">
+          <button
+            type="button"
+            className="btn btn-primary ms-1"
+            onClick={() => {setEdit(true)}}
+          >
+            Edit
+          </button>
+          <button 
+            onClick={() => {delToDo(toDo.id)}}
+            type="button"
+            className="btn btn-primary ms-1"
+          >
+            Delete
+          </button>
+        </div>
+          
       </>
     )
   }
 
   return (
-      <div class="form-check">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          checked={toDo.done}
-          onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
-        />
-        <label className="form-check-label">{toDoText}</label>
-        <button 
-          onClick={() => {delToDo(toDo.id)}}
-          type="button"
-          className="btn btn-primary"
-        >
-          Delete
-        </button>
-      </div>
+    <>
+      {toDoItem}
+    </>
   )
 }
   
@@ -119,7 +135,7 @@ export default function ToDoApp() {
   }
 
   return (
-  <div className="mb-3">
+  <div className="container mt-4">
     <NewToDo
       newToDo={handleNewToDo}
     />
