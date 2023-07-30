@@ -14,7 +14,7 @@ function NewToDo({newToDo}) {
         <div className="d-grid col-3">
           <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-outline-light"
               onClick={() => {newToDo(text); setText("")}}
           >
             Save
@@ -60,7 +60,7 @@ function ToDo({toDo, delToDo, editToDo}) {
         <div className="d-grid col-3">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-outline-light"
             onClick={() => setEdit(false)}
           >
             Save
@@ -79,12 +79,12 @@ function ToDo({toDo, delToDo, editToDo}) {
             id={toDo.id}
             onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
           />
-          <label className="form-check-label" for={toDo.id}>{toDo.text}</label>
+          <label className="form-check-label text-white" for={toDo.id}>{toDo.text}</label>
         </div>
         <div className="col pe-0 text-end">
           <button
             type="button"
-            className="btn btn-primary ms-1"
+            className="btn btn-outline-light ms-1"
             onClick={() => {setEdit(true)}}
           >
             Edit
@@ -92,7 +92,7 @@ function ToDo({toDo, delToDo, editToDo}) {
           <button 
             onClick={() => {delToDo(toDo.id)}}
             type="button"
-            className="btn btn-primary ms-1"
+            className="btn btn-outline-light ms-1"
           >
             Delete
           </button>
