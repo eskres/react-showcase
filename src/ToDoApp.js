@@ -41,9 +41,7 @@ function ToDos({toDos, delToDo, editToDo}) {
 }
 
 function ToDo({toDo, delToDo, editToDo}) {
-
   const [edit, setEdit] = useState(false);
-
   let toDoItem;
 
   if (edit) {
