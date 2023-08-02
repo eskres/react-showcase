@@ -1,9 +1,11 @@
 import { useState, useRef } from "react";
 
+// Component for new to-do form
 function NewToDo({newToDo}) {
   const [text, setText] = useState("");
   const textRef = useRef(null);
 
+  // Handle text area in DOM safely with useRef
   const resizeTextArea = (height) => {
     const textArea = textRef.current
     textArea.style.height = height
@@ -36,6 +38,7 @@ function NewToDo({newToDo}) {
   )
 }
 
+// Component to list to-do items
 function ToDos({toDos, delToDo, editToDo}) {
   return (
     <>
@@ -52,10 +55,12 @@ function ToDos({toDos, delToDo, editToDo}) {
   )
 }
 
+// Component for individual to-do items
 function ToDo({toDo, delToDo, editToDo}) {
   const [edit, setEdit] = useState(false);
   let toDoItem;
   
+  // Conditionally render to-do item as a text area input if user selects edit
   if (edit) {
     toDoItem = (
       <>
@@ -81,6 +86,7 @@ function ToDo({toDo, delToDo, editToDo}) {
       </>
     )
   } else {
+    // Otherwise to-do item is a checkbox input
     toDoItem = (
       <>
       <div className="clearfix">
@@ -122,7 +128,7 @@ function ToDo({toDo, delToDo, editToDo}) {
   )
 }
   
-  
+// Parent component to bring it all together
 export default function ToDoApp() {
   
   const [toDos, setToDos] = useState([
