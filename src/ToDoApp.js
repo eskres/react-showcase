@@ -1,21 +1,33 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function NewToDo({newToDo}) {
-  const [text, setText] = useState("")
+  const [text, setText] = useState("");
+  const textRef = useRef(null);
+
+  const resizeTextArea = (height) => {
+    const textArea = textRef.current
+    textArea.style.height = height
+  }
   
   return (
-      <div className="row mb-4 gx-2 justify-content-end">
+      <div className="row mb-3 gx-2 justify-content-end">
         <div className="col">
           <div className="form-floating">
-            <textarea className="form-control" id="newToDo" value={text} onChange={(e) => {setText(e.target.value)}}/>
-            <label for="newToDo">New to-do:</label>
+            <textarea className="form-control" id="newToDo" value={text} 
+            onChange={(e) => {
+              setText(e.target.value);
+              resizeTextArea(`${e.target.scrollHeight}px`)
+            }}
+            ref={textRef}
+            />
+            <label htmlFor="newToDo">New to-do:</label>
           </div>
         </div>
         <div className="d-grid col-3">
           <button
               type="button"
               className="btn btn-outline-light"
-              onClick={() => {newToDo(text); setText("")}}
+              onClick={() => {newToDo(text); setText(""); resizeTextArea(null)}}
           >
             Save
           </button>
@@ -43,19 +55,21 @@ function ToDos({toDos, delToDo, editToDo}) {
 function ToDo({toDo, delToDo, editToDo}) {
   const [edit, setEdit] = useState(false);
   let toDoItem;
-
+  
   if (edit) {
     toDoItem = (
       <>
-      <div className="col">
+      <div className="col-12">
         <textarea
           className="form-control"
           type="text"
           value={toDo.text}
-          onChange={(e) => {editToDo({...toDo, text: e.target.value})}}
+          onChange={(e) => {editToDo({...toDo, text: e.target.value}); e.target.style.height = `${e.target.scrollHeight}px`}}
+          onFocus={(e) => {e.target.style.height = `${e.target.scrollHeight}px`}}
+          autoFocus
         />
       </div>
-        <div className="d-grid col-3">
+        <div className="d-grid col-12 mt-2">
           <button
             type="button"
             className="btn btn-outline-light"
@@ -69,7 +83,8 @@ function ToDo({toDo, delToDo, editToDo}) {
   } else {
     toDoItem = (
       <>
-        <div className="form-check col">
+      <div className="clearfix">
+        <div className="form-check col float-start">
           <input
             className="form-check-input"
             type="checkbox"
@@ -77,9 +92,9 @@ function ToDo({toDo, delToDo, editToDo}) {
             id={toDo.id}
             onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
           />
-          <label className="form-check-label text-white" for={toDo.id}>{toDo.text}</label>
+          <label className="form-check-label text-white" htmlFor={toDo.id}>{toDo.text}</label>
         </div>
-        <div className="col pe-0 text-end">
+        <div className="col pe-0 float-end">
           <button
             type="button"
             className="btn btn-outline-light ms-1"
@@ -95,7 +110,7 @@ function ToDo({toDo, delToDo, editToDo}) {
             Delete
           </button>
         </div>
-          
+      </div>
       </>
     )
   }
@@ -133,15 +148,18 @@ export default function ToDoApp() {
   }
 
   return (
-  <div className="container mt-4">
-    <NewToDo
-      newToDo={handleNewToDo}
-    />
-    <ToDos
-      toDos={toDos}
-      delToDo={handleDeleteToDo}
-      editToDo={handleEditToDo}
-    />
-  </div>
+    <>
+      <h2 className='text-white'>To-Do List</h2>
+      <div className="container my-3">
+        <NewToDo
+          newToDo={handleNewToDo}
+        />
+        <ToDos
+          toDos={toDos}
+          delToDo={handleDeleteToDo}
+          editToDo={handleEditToDo}
+        />
+      </div>
+    </>
   )
 }
