@@ -146,6 +146,7 @@ function Buttons({pause, setPause,setRemainingTime, taskTime, setModal}) {
   )
 }
 
+// Parent component to bring it all together
 export default function PomodoroApp() {
   const [pause, setPause] = useState(true);
   const [task, setTask] = useState(true);
