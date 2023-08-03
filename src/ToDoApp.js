@@ -135,7 +135,7 @@ export default function ToDoApp() {
     // Get any saved to-dos from local storage
     const saved = JSON.parse(localStorage.getItem("toDos"));
     // Initialise state with saved to-dos if they exist
-    if (saved.data) {
+    if (saved) {
       return saved.data
     }
     return [{ id: 0, text: "My first to-do", done: false}]
