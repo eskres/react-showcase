@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Component for new to-do form
 function NewToDo({newToDo}) {
@@ -94,7 +94,7 @@ function ToDo({toDo, delToDo, editToDo}) {
           <input
             className="form-check-input"
             type="checkbox"
-            value={toDo.done}
+            checked={toDo.done}
             id={toDo.id}
             onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
           />
@@ -131,9 +131,18 @@ function ToDo({toDo, delToDo, editToDo}) {
 // Parent component to bring it all together
 export default function ToDoApp() {
   
-  const [toDos, setToDos] = useState([
-    { id: 0, text: "My first to-do", done: false}
-  ]);
+  const [toDos, setToDos] = useState(() => {
+    // Get any saved to-dos from local storage
+    const saved = JSON.parse(localStorage.getItem("toDos"));
+    // Initialise state with saved to-dos if they exist
+    return saved.data || [{ id: 0, text: "My first to-do", done: false}]
+  }
+  );
+
+  useEffect(() => {
+    // Store to-dos in local storage on state change
+    localStorage.setItem("toDos", JSON.stringify({data: toDos}))
+  }, [toDos])
 
   const handleNewToDo = (text) => {
     setToDos([...toDos, {text: text, done: false, id: toDos.length}])
