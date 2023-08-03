@@ -2,11 +2,11 @@ import { useEffect, useState, useRef } from "react"
 import { Modal } from "bootstrap";
 
 // Component for timer progress bar and countdown
-function Timer({remainingTime, task, taskTime, breakTime, pause}) {
+function Timer({remainingTime, task, settings, pause}) {
   return (
     <>
-      <div className="progress my-3" role="progressbar" aria-label="Timer progress bar" aria-valuenow={remainingTime} aria-valuemin="0" aria-valuemax={task ? taskTime : breakTime} style={{height: 3 + "px"}}>
-        <div className={"progress-bar-striped progress-bar-animated progress-bar" + (pause ? " bg-warning" : (task ? " bg-danger" : " bg-info"))} style={{width: 100-(100/(task ? taskTime : breakTime)) * remainingTime + "%"}}></div>
+      <div className="progress my-3" role="progressbar" aria-label="Timer progress bar" aria-valuenow={remainingTime} aria-valuemin="0" aria-valuemax={task ? settings.task : settings.break} style={{height: 3 + "px"}}>
+        <div className={"progress-bar-striped progress-bar-animated progress-bar" + (pause ? " bg-warning" : (task ? " bg-danger" : " bg-info"))} style={{width: 100-(100/(task ? settings.task : settings.break)) * remainingTime + "%"}}></div>
       </div>  
       <p className="text-white mt-2">
         {Math.floor(remainingTime / 60)} minutes and {Math.floor(remainingTime % 60)} seconds remaining
@@ -16,9 +16,9 @@ function Timer({remainingTime, task, taskTime, breakTime, pause}) {
 }
 
 // Component for status badge
-function Status({pause, task, taskTime, remainingTime}) {
+function Status({pause, task, settings, remainingTime}) {
   // Check whether timer has been started
-  if (taskTime !== remainingTime) {
+  if (settings !== remainingTime) {
     // Check whether timer is paused
     if (pause) {
       return <span className="badge p-1 text-bg-warning ms-2">Paused</span>
@@ -34,33 +34,32 @@ function Status({pause, task, taskTime, remainingTime}) {
 }
 
 // Component for settings form modal
-function Settings({taskTime, breakTime, modalRef, setModal, handleSave}) {
+function Settings({settings, modalRef, setModal, handleSave}) {
   // State for input fields
   const [inputs, setInputs] = useState({
-    task: taskTime / 60,
-    break: breakTime / 60
+    task: settings.task / 60,
+    break: settings.break / 60
   })
 
   // Handle user inputs
   const handleChange = (e) => {
-    // Tidy classes for validation
-    const classes = e.target.classList;
-    classes.contains('is-valid') && classes.remove('is-valid');
-    classes.contains('is-invalid') && classes.remove('is-invalid');
-    // Check for a valid inputs using the constraint validation api
-    if (e.target.checkValidity() && e.target.value !== ""){
-      classes.add('is-valid');
-    } else if (e.target.value === "") {
-      classes.add('is-invalid');
-      return
-    } else {
-      classes.add('is-invalid');
-      return
-    }
-    // Allow value change if valid input
     const name = e.target.name;
     const value = e.target.value;
     setInputs(values => ({...values, [name]: Number(value)}));
+  }
+
+  const validate = (e) => {
+    // Tidy classes for validation
+    const classes = e.target.classList;
+    if (classes) {
+      classes.remove('is-valid');
+      classes.remove('is-invalid');
+    }
+    // Check for a valid inputs using the constraint validation api
+    if (!e.target.checkValidity() || e.target.value === ""){
+      classes.add('is-invalid');
+      return
+    }
   }
 
   return (
@@ -76,20 +75,27 @@ function Settings({taskTime, breakTime, modalRef, setModal, handleSave}) {
           </div>
           <form className="modal-body">
           <div className="form-floating mb-3 text-light">
-            <input type="number" className="form-control" id="taskTime" name="task" value={inputs.task} onChange={handleChange} min={1} required></input>
+            <input type="text" inputMode="numeric" pattern="[1-9][0-9]*" className="form-control" id="taskTime" name="task" value={inputs.task} onChange={handleChange} onBlur={validate} min={0} required></input>
             <label htmlFor="taskTime">Task duration (mins)</label>
+            <p className="invalid-feedback">
+              Task duration must be at least 1 minute
+            </p>
           </div>
           <div className="form-floating text-light">
-            <input type="number" className="form-control" id="breakTime" name="break" value={inputs.break} onChange={handleChange} min={1} required></input>
+            <input type="text" inputMode="numeric" pattern="[1-9][0-9]*" className="form-control" id="breakTime" name="break" value={inputs.break} onChange={handleChange} onBlur={validate} min={0} required></input>
             <label htmlFor="breakTime">Break duration (mins)</label>
+            <p className="invalid-feedback">
+              Break duration must be at least 1 minute
+            </p>
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-outline-light" data-bs-dismiss="modal"
             onClick={
               () => {setModal(prevModal => !prevModal);
             }}>Close</button>
-            <button type="button" className="btn btn-outline-light" data-bs-dismiss="modal"
-            onClick={() => handleSave(inputs)}>Save changes</button>
+            <button type="button" className="btn btn-outline-light" onClick={() => handleSave(inputs)}>
+              Save changes
+            </button>
           </div>
           </form>
         </div>
@@ -99,7 +105,7 @@ function Settings({taskTime, breakTime, modalRef, setModal, handleSave}) {
 }
 
 // Component for timer buttons
-function Buttons({pause, setPause,setRemainingTime, taskTime, setModal}) {
+function Buttons({pause, setPause,setRemainingTime, settings, setModal}) {
   return(
     <div className="row row-cols-auto">
       {
@@ -116,7 +122,7 @@ function Buttons({pause, setPause,setRemainingTime, taskTime, setModal}) {
 
             <button className="btn btn-outline-light"
             onClick={() => {
-              setRemainingTime(taskTime);
+              setRemainingTime(settings.task);
               setPause(true);
             }}>Reset</button>
           </div>
@@ -150,9 +156,17 @@ function Buttons({pause, setPause,setRemainingTime, taskTime, setModal}) {
 export default function PomodoroApp() {
   const [pause, setPause] = useState(true);
   const [task, setTask] = useState(true);
-  const [taskTime, setTaskTime] = useState(25 * 60);
-  const [breakTime, setBreakTime] = useState(5 * 60);
-  const [remainingTime, setRemainingTime] = useState(taskTime);
+  const [settings, setSettings] = useState(() => {
+      // Get any saved settings from local storage
+      const saved = JSON.parse(localStorage.getItem("pomSettings"));
+      // Initialise state with saved settings if they exist
+      if (saved) {
+        return saved
+      }
+      return {task: 25 * 60, break: 5 * 60}
+    }
+  );
+  const [remainingTime, setRemainingTime] = useState(settings.task);
   const [modal, setModal] = useState(false);
   let modalRef = useRef();
 
@@ -174,17 +188,23 @@ export default function PomodoroApp() {
 
   // Save user inputs to timer states and hide modal
   const handleSave = (inputs) => {
-    setTask(true);
-    setTaskTime(inputs.task * 60);
-    setBreakTime(inputs.break * 60);
-    setRemainingTime(inputs.task * 60);
-    setModal(false);
+    if (inputs.task > 0 && inputs.break > 0) {      
+      setTask(true);
+      setSettings({task: inputs.task * 60, break: inputs.break * 60});
+      setRemainingTime(inputs.task * 60);
+      setModal(false);
+    }
   }
 
   // For modal visibility
   useEffect(() => {
     toggleModal(modal);
   });
+
+  useEffect(() => {
+    // Store to-dos in local storage on state change
+    localStorage.setItem("pomSettings", JSON.stringify(settings))
+  }, [settings])
 
   // For timer and transitioning between task and break
   useEffect(() => {
@@ -195,23 +215,22 @@ export default function PomodoroApp() {
       }
       //Transition to break
       if (remainingTime === 0 && task) {
-        setRemainingTime(breakTime);
+        setRemainingTime(settings.break);
         setTask(prevState => !prevState);
       }
       //Transition to task
       if (remainingTime === 0 && !task) {
-        setRemainingTime(taskTime);
+        setRemainingTime(settings.task);
         setTask(prevState => !prevState);
       }
     }, 1000);
     return () => {clearInterval(timer)}
-  }, [pause, remainingTime, task, taskTime, breakTime]);
+  }, [pause, remainingTime, task, settings]);
 
   return (
   <>
     <Settings
-      taskTime={taskTime}
-      breakTime={breakTime}
+      settings={settings}
       modalRef={modalRef}
       setModal={setModal}
       handleSave={handleSave}
@@ -221,7 +240,7 @@ export default function PomodoroApp() {
       <Status
         pause={pause}
         task={task}
-        taskTime={taskTime}
+        settings={settings}
         remainingTime={remainingTime}
       />
     </h2>
@@ -229,15 +248,14 @@ export default function PomodoroApp() {
       <Timer
         remainingTime={remainingTime}
         task={task}
-        taskTime={taskTime}
-        breakTime={breakTime}
+        settings={settings}
         pause={pause}
       />
       <Buttons
         pause={pause}
         setPause={setPause}
         setRemainingTime={setRemainingTime}
-        taskTime={taskTime}
+        settings={settings}
         setModal={setModal}
       />
     </div>
