@@ -18,19 +18,19 @@ function Timer({remainingTime, task, settings, pause}) {
 // Component for status badge
 function Status({pause, task, settings, remainingTime}) {
   // Check whether timer has been started
-  if (settings !== remainingTime) {
-    // Check whether timer is paused
-    if (pause) {
-      return <span className="badge p-1 text-bg-warning ms-2">Paused</span>
-    }
-    // Check whether timer is on task or break
-    if (task) {
-      return <span className="badge p-1 text-bg-danger ms-2">On Task</span>
-    } else {
-      return <span className="badge p-1 text-bg-info ms-2">On Break</span>
-    }
+  if (settings.task === remainingTime && pause) {
+    return
   }
-  return
+  // Check whether timer is paused
+  if (pause) {
+    return <span className="badge p-1 text-bg-warning ms-2">Paused</span>
+  }
+  // Check whether timer is on task or break
+  if (task) {
+    return <span className="badge p-1 text-bg-danger ms-2">On Task</span>
+  } else {
+    return <span className="badge p-1 text-bg-info ms-2">On Break</span>
+  }
 }
 
 // Component for settings form modal
