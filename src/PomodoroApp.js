@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react"
-import { Modal } from "bootstrap";
+import { useEffect, useState, useRef } from "react";
+import toggleModal from "./toggleModal";
 
 // Component for timer progress bar and countdown
 function Timer({remainingTime, task, settings, pause}) {
@@ -170,22 +170,6 @@ export default function PomodoroApp() {
   const [modal, setModal] = useState(false);
   let modalRef = useRef();
 
-  // Toggle modal visibilitiy
-  const toggleModal = (modal) => {
-    // useRef to safely access modal in DOM
-    const myModal = Modal.getOrCreateInstance(modalRef.current);
-    switch (modal) {
-      case modal = false:
-        myModal.hide();
-        break;
-      case modal = true:
-        myModal.show();
-        break;
-      default:
-        break;
-    }
-  }
-
   // Save user inputs to timer states and hide modal
   const handleSave = (inputs) => {
     if (inputs.task > 0 && inputs.break > 0) {      
@@ -198,7 +182,7 @@ export default function PomodoroApp() {
 
   // For modal visibility
   useEffect(() => {
-    toggleModal(modal);
+    toggleModal(modal, modalRef);
   });
 
   useEffect(() => {
