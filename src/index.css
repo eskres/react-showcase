@@ -8,3 +8,11 @@ body, html {
   width: auto;
   font-family: 'Poppins', sans-serif;
 }
+
+.modal{
+  --bs-modal-bg: #1C1F25;
+}
+
+.modal-backdrop{
+  --bs-backdrop-bg: #011318;
+}
