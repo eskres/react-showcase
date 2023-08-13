@@ -31,71 +31,71 @@ export default function CalculatorApp() {
             </div>
             <div className="modal-body container text-center text-light">
             <div className="row my-1"></div>
-            <div className="row g-1">
-              <div className="col me-1">
-                AC
+            <div className="row g-1 mb-1">
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-danger rounded-0">AC</button>
               </div>
-              <div className="col me-1">
-                +/-
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">+/−</button>
               </div>
-              <div className="col me-1">
-                %
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">%</button>
               </div>
-              <div className="col">
-                /
-              </div>
-            </div>
-            <div className="row g-1">
-              <div className="col me-1">
-                7
-              </div>
-              <div className="col me-1">
-                8
-              </div>
-              <div className="col me-1">
-                9
-              </div>
-              <div className="col">
-                ×
+              <div className="col d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">÷</button>
               </div>
             </div>
-            <div className="row g-1">
-              <div className="col me-1">
-                4
+            <div className="row g-1 mb-1">
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">7</button>
               </div>
-              <div className="col me-1">
-                5
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">8</button>
               </div>
-              <div className="col me-1">
-                6
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">9</button>
               </div>
-              <div className="col">
-                -
-              </div>
-            </div>
-            <div className="row g-1">
-              <div className="col me-1">
-                1
-              </div>
-              <div className="col me-1">
-                2
-              </div>
-              <div className="col me-1">
-                3
-              </div>
-              <div className="col">
-                +
+              <div className="col d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">×</button>
               </div>
             </div>
-            <div className="row g-1">
-              <div className="col-6 ">
-                0
+            <div className="row g-1 mb-1">
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">4</button>
               </div>
-              <div className="col">
-                .
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">5</button>
               </div>
-              <div className="col">
-                =
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">6</button>
+              </div>
+              <div className="col d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">−</button>
+              </div>
+            </div>
+            <div className="row g-1 mb-1">
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">1</button>
+              </div>
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">2</button>
+              </div>
+              <div className="col me-1 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">3</button>
+              </div>
+              <div className="col d-grid">
+                <button type="button" className="btn btn-outline-warning rounded-0">+</button>
+              </div>
+            </div>
+            <div className="row g-2">
+              <div className="col d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">0</button>
+              </div>
+              <div className="col-3 d-grid">
+                <button type="button" className="btn btn-outline-secondary text-light rounded-0">.</button>
+              </div>
+              <div className="col-3 d-grid">
+                <button type="button" className="btn btn-warning rounded-0">=</button>
               </div>
             </div>
 
