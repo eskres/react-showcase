@@ -16,3 +16,7 @@ body, html {
 .modal-backdrop{
   --bs-backdrop-bg: #011318;
 }
+
+.placeholder{
+  background-color: #1C1F25;
+}
