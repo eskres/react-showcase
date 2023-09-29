@@ -222,13 +222,12 @@ export default function CalculatorApp() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-light mb-3" 
-      onClick={() => {setModal(prevModal => !prevModal);}}>
+      <button type="button" className="btn btn-outline-light mb-3" data-bs-toggle="modal" data-bs-target="#calculatorModal">
         <CalculatorIcon/>
         Calculator
       </button>
       
-      <div className="modal" id="settings" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} ref={modalRef} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
+      <div className="modal" id="calculatorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} ref={modalRef} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
