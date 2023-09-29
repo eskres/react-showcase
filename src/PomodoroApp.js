@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import toggleModal from "./toggleModal";
 
 // Component for timer progress bar and countdown
 function Timer({remainingTime, task, settings, pause}) {
@@ -34,7 +33,7 @@ function Status({pause, task, settings, remainingTime}) {
 }
 
 // Component for settings form modal
-function Settings({settings, modalRef, setModal, handleSave}) {
+function Settings({settings, handleSave}) {
   // State for input fields
   const [inputs, setInputs] = useState({
     task: settings.task / 60,
@@ -63,15 +62,12 @@ function Settings({settings, modalRef, setModal, handleSave}) {
   }
 
   return (
-    <div className="modal" id="settings" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark" ref={modalRef}>
+    <div className="modal" id="settingsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title text-light">Pomodoro Settings</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            onClick={() => {
-              setModal(prevModal => !prevModal);
-            }}></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form className="modal-body">
           <div className="form-floating mb-3 text-light">
@@ -89,11 +85,8 @@ function Settings({settings, modalRef, setModal, handleSave}) {
             </p>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-outline-light" data-bs-dismiss="modal"
-            onClick={
-              () => {setModal(prevModal => !prevModal);
-            }}>Close</button>
-            <button type="button" className="btn btn-outline-light" onClick={() => handleSave(inputs)}>
+            <button type="button" className="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+            <button type="button" className="btn btn-outline-light" data-bs-dismiss="modal" onClick={() => handleSave(inputs)}>
               Save changes
             </button>
           </div>
@@ -137,10 +130,9 @@ function Buttons({pause, setPause,setRemainingTime, settings, setModal}) {
         </div>
       }
       <div className="col">
-        <button type="button" className="btn btn-outline-light d-flex align-items-center h-100"
+        <button type="button" className="btn btn-outline-light d-flex align-items-center h-100" data-bs-toggle="modal" data-bs-target="#settingsModal"
           onClick={() => {
             setPause(true);
-            setModal(prevModal => !prevModal);
           }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-gear" viewBox="0 0 16 16">
             <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
@@ -167,8 +159,6 @@ export default function PomodoroApp() {
     }
   );
   const [remainingTime, setRemainingTime] = useState(settings.task);
-  const [modal, setModal] = useState(false);
-  let modalRef = useRef();
 
   // Save user inputs to timer states and hide modal
   const handleSave = (inputs) => {
@@ -176,14 +166,8 @@ export default function PomodoroApp() {
       setTask(true);
       setSettings({task: inputs.task * 60, break: inputs.break * 60});
       setRemainingTime(inputs.task * 60);
-      setModal(false);
     }
   }
-
-  // For modal visibility
-  useEffect(() => {
-    toggleModal(modal, modalRef);
-  });
 
   useEffect(() => {
     // Store to-dos in local storage on state change
@@ -215,8 +199,6 @@ export default function PomodoroApp() {
   <>
     <Settings
       settings={settings}
-      modalRef={modalRef}
-      setModal={setModal}
       handleSave={handleSave}
     />
     <h2 className="col text-white">
@@ -240,7 +222,6 @@ export default function PomodoroApp() {
         setPause={setPause}
         setRemainingTime={setRemainingTime}
         settings={settings}
-        setModal={setModal}
       />
     </div>
   </>

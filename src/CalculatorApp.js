@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import toggleModal from './toggleModal';
+import React, { useState } from 'react';
 import Decimal from 'decimal.js';
 import toFormat from 'toformat';
 
@@ -27,14 +26,6 @@ export default function CalculatorApp() {
   }
   const [calc, setCalc] = useState(calcDefault); 
   
-  const [modal, setModal] = useState(false);
-  let modalRef = useRef();
-
-  // For modal visibility
-  useEffect(() => {
-    toggleModal(modal, modalRef);
-  })
-
   // Convert calc state num arrays to Decimal instances for calculations
   const arrayToDecimal = (num) => {
     if (num.length !== 0) {
@@ -222,19 +213,18 @@ export default function CalculatorApp() {
 
   return (
     <>
-      <button type="button" className="btn btn-outline-light mb-3" 
-      onClick={() => {setModal(prevModal => !prevModal);}}>
+      <button type="button" className="btn btn-outline-light mb-3" data-bs-toggle="modal" data-bs-target="#calculatorModal">
         <CalculatorIcon/>
         Calculator
       </button>
       
-      <div className="modal" id="settings" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} ref={modalRef} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
+      <div className="modal" id="calculatorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className='modal-title text-light'><CalculatorIcon/></h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
-              onClick={() => {setModal(prevModal => !prevModal);}}></button>
+              ></button>
             </div>
             <div className="modal-body container text-center text-light">
             <div className="row mb-2 py-2">
