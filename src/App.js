@@ -1,13 +1,13 @@
 import React from 'react'
 import ToDoApp from './ToDoApp'
-import PomodoroApp from './PomodoroApp'
+import PomodoroTimer from './components/organisms/pomodoroTimer/PomodoroTimer'
 import CalculatorApp from './CalculatorApp'
 
 export default function App() {
   return (
     <div className='container'>
       <CalculatorApp/>
-      <PomodoroApp/>
+      <PomodoroTimer/>
       <ToDoApp/>
     </div>
   )
