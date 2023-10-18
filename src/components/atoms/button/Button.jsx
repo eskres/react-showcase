@@ -1,7 +1,16 @@
-import Icon from '../Icons/Icon'
+import Icon from '../Icons/Icon';
 
-export default function Button(props) {
-  const {onClick, type, value, icon, className, dataBsToggle, dataBsTarget, children} = props
+export default function Button({
+  onClick,
+  type,
+  value,
+  icon,
+  className,
+  dataBsToggle,
+  dataBsTarget,
+  dataBsDismiss,
+  children
+}) {
 
   return (
     <button 
@@ -11,6 +20,7 @@ export default function Button(props) {
         className={className ? `btn btn-outline-light ${className}` : "btn btn-outline-light"}
         data-bs-toggle={dataBsToggle ? dataBsToggle : undefined}
         data-bs-target={dataBsTarget ? dataBsTarget : undefined}
+        data-bs-dismiss={dataBsDismiss ? dataBsDismiss : undefined}
     >
       {icon ? <Icon icon={icon}/> : null}
       {children}
