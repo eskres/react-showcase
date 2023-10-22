@@ -1,5 +1,5 @@
 import React from 'react'
-import ToDoApp from './ToDoApp'
+import ToDoList from './components/organisms/toDoList/ToDoList'
 import PomodoroTimer from './components/organisms/pomodoroTimer/PomodoroTimer'
 import CalculatorApp from './CalculatorApp'
 
@@ -8,7 +8,7 @@ export default function App() {
     <div className='container'>
       <CalculatorApp/>
       <PomodoroTimer/>
-      <ToDoApp/>
+      <ToDoList/>
     </div>
   )
 }

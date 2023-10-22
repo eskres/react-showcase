@@ -1,132 +1,96 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
+import ToDoAdd from "./components/organisms/toDoList/toDoAdd/ToDoAdd";
+import ToDoListItems from "./components/organisms/toDoList/toDoListItems/ToDoListItems"
 
-// Component for new to-do form
-function NewToDo({newToDo}) {
-  const [text, setText] = useState("");
-  const textRef = useRef(null);
+// // Component for new to-do form
+// function NewToDo({setToDos, toDos}) {
+//   const [text, setText] = useState("");
+//   const textRef = useRef(null);
 
-  // Handle text area in DOM safely with useRef
-  const resizeTextArea = (height) => {
-    const textArea = textRef.current
-    textArea.style.height = height
-  }
+//   // Handle text area in DOM safely with useRef
+//   const resizeTextArea = (height) => {
+//     const textArea = textRef.current
+//     textArea.style.height = height
+//   }
+
+//   const handleNewToDo = (text) => {
+//     setToDos([...toDos, {id: text.substring(0, 2).toLowerCase() + Date.now(), text: text, edit: false, done: false}])
+//   }
   
-  return (
-      <div className="row mb-3 gx-2 justify-content-end">
-        <div className="col">
-          <div className="form-floating">
-            <textarea className="form-control" id="newToDo" value={text} 
-            onChange={(e) => {
-              setText(e.target.value);
-              resizeTextArea(`${e.target.scrollHeight}px`)
-            }}
-            ref={textRef}
-            />
-            <label htmlFor="newToDo">New to-do:</label>
-          </div>
-        </div>
-        <div className="d-grid col-3">
-          <button
-              type="button"
-              className="btn btn-outline-light"
-              onClick={() => {newToDo(text); setText(""); resizeTextArea(null)}}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-  )
-}
+//   return (
+//         <ToDoAdd
+//           id={"newToDo"}
+//           value={text}
+//           ref={textRef}
+//           onChange={(e) => {
+//             setText(e.target.value);
+//             resizeTextArea(`${e.target.scrollHeight}px`)
+//           }}
+//           onClick={() => {
+//             handleNewToDo(text);
+//             setText("");
+//             resizeTextArea(null)
+//           }}
+//         />
+//   )
+// }
 
 // Component to list to-do items
-function ToDos({toDos, delToDo, editToDo}) {
-  return (
-    <>
-      {toDos.map((toDo) => (
-        <div className="row mx-0 mt-2 pt-2 border-top gx-2" key={toDo.id}>
-          <ToDo
-            toDo={toDo}
-            delToDo={delToDo}
-            editToDo={editToDo}
-          />
-        </div>
-      ))}
-    </>
-  )
-}
+// function ToDos({toDos, delToDo, editToDo}) {
+//   return (
+//     <>
+//       {toDos.map((toDo) => (
+//         <div className="row mx-0 mt-2 pt-2 border-top gx-2" key={toDo.id}>
+//           <ToDo
+//             toDo={toDo}
+//             delToDo={delToDo}
+//             editToDo={editToDo}
+//           />
+//         </div>
+//       ))}
+//     </>
+//   )
+// }
 
-// Component for individual to-do items
-function ToDo({toDo, delToDo, editToDo}) {
-  const [edit, setEdit] = useState(false);
-  let toDoItem;
+// // Component for individual to-do items
+// function ToDo({toDo, delToDo, editToDo}) {
+//   const [edit, setEdit] = useState(false);
+//   let toDoItem;
   
-  // Conditionally render to-do item as a text area input if user selects edit
-  if (edit) {
-    toDoItem = (
-      <>
-      <div className="col-12">
-        <textarea
-          className="form-control"
-          type="text"
-          value={toDo.text}
-          onChange={(e) => {editToDo({...toDo, text: e.target.value}); e.target.style.height = `${e.target.scrollHeight}px`}}
-          onFocus={(e) => {e.target.style.height = `${e.target.scrollHeight}px`}}
-          autoFocus
-        />
-      </div>
-        <div className="d-grid col-12 mt-2">
-          <button
-            type="button"
-            className="btn btn-outline-light"
-            onClick={() => setEdit(false)}
-          >
-            Save
-          </button>
-        </div>
-      </>
-    )
-  } else {
-    // Otherwise to-do item is a checkbox input
-    toDoItem = (
-      <>
-      <div className="clearfix">
-        <div className="form-check col float-start">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={toDo.done}
-            id={toDo.id}
-            onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
-          />
-          <label className="form-check-label text-white" htmlFor={toDo.id}>{toDo.text}</label>
-        </div>
-        <div className="col pe-0 float-end">
-          <button
-            type="button"
-            className="btn btn-outline-light ms-1"
-            onClick={() => {setEdit(true)}}
-          >
-            Edit
-          </button>
-          <button 
-            onClick={() => {delToDo(toDo.id)}}
-            type="button"
-            className="btn btn-outline-light ms-1"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      </>
-    )
-  }
+//   // Conditionally render to-do item as a text area input if user selects edit
+//   if (edit) {
+//     toDoItem = (
+//       <ToDoEdit
+//         value={toDo.text}
+//         onChange={(e) => {
+//           editToDo({...toDo, text: e.target.value});
+//           e.target.style.height = `${e.target.scrollHeight}px`;
+//         }}
+//         onFocus={(e) => {e.target.style.height = `${e.target.scrollHeight}px`}}
+//         autoFocus={true}
+//         onClick={() => setEdit(false)}
+//       />
+//     )
+//   } else {
+//     // Otherwise to-do item is a checkbox input
+//     toDoItem = (
+//       <ToDoItem
+//         toDo={toDo}
+//         onChange={(e) => {editToDo({...toDo, done: e.target.checked})}}
+//         onClick={{
+//           edit: () => {setEdit(true)},
+//           delete: () => {delToDo(toDo.id)}
+//         }}
+//       />
+//     )
+//   }
 
-  return (
-    <>
-      {toDoItem}
-    </>
-  )
-}
+//   return (
+//     <>
+//       {toDoItem}
+//     </>
+//   )
+// }
   
 // Parent component to bring it all together
 export default function ToDoApp() {
@@ -138,18 +102,22 @@ export default function ToDoApp() {
     if (saved) {
       return saved.data
     }
-    return [{ id: 0, text: "My first to-do", done: false}]
-  }
-  );
+    return [{
+      text: "My first to-do",
+      edit: false,
+      done: false,
+      id: "my" + Date.now()
+    }]
+  });
 
   useEffect(() => {
     // Store to-dos in local storage on state change
     localStorage.setItem("toDos", JSON.stringify({data: toDos}))
   }, [toDos])
 
-  const handleNewToDo = (text) => {
-    setToDos([...toDos, {text: text, done: false, id: toDos.length}])
-  }
+  // const handleNewToDo = (text) => {
+  //   setToDos([...toDos, {id: text.substring(0, 2).toLowerCase() + Date.now(), text: text, edit: false, done: false}])
+  // }
 
   const handleDeleteToDo = (toDoID) => {
     setToDos(toDos.filter((todo) => todo.id !== toDoID))
@@ -165,15 +133,25 @@ export default function ToDoApp() {
     }));
   }
 
+  const feedback = {
+    className: "invalid-feedback",
+    content: "A to-do must be at least 2 characters long"
+  }
+
   return (
     <>
       <h2 className='text-white'>To-Do List</h2>
       <div className="container my-3">
-        <NewToDo
-          newToDo={handleNewToDo}
-        />
-        <ToDos
+        <ToDoAdd
+          id={"newToDo"}
+          required={true}
           toDos={toDos}
+          setToDos={setToDos}
+          feedback={feedback}
+        />
+        <ToDoListItems
+          toDos={toDos}
+          setToDos={setToDos}
           delToDo={handleDeleteToDo}
           editToDo={handleEditToDo}
         />
