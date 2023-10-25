@@ -1,37 +1,37 @@
 import Gear from './SVGs/Gear';
 import Play from './SVGs/Play';
 import Pause from './SVGs/Pause';
-import CalculatorIcon from './SVGs/CalculatorIcon';
+import Calculator from './SVGs/Calculator';
 import React from './SVGs/React';
 import Github from './SVGs/Github';
 import LinkedIn from './SVGs/LinkedIn';
 import Email from './SVGs/Email';
 
-export default function Icon({ icon }) {
+export default function Icon({ icon, className }) {
   switch (icon) {
     case "gear":
-      return <Gear/>
+      return <Gear className={className}/>
       
     case "play":
-      return <Play/>
+      return <Play className={className}/>
 
     case "pause":
-      return <Pause/>
+      return <Pause className={className}/>
 
     case "calculator":
-      return <CalculatorIcon/>
+      return <Calculator className={className}/>
       
     case "react":
-      return <React/>
+      return <React className={className}/>
       
     case "github":
-      return <Github/>
+      return <Github className={className}/>
       
     case "linkedin":
-      return <LinkedIn/>
+      return <LinkedIn className={className}/>
       
     case "email":
-      return <Email/>
+      return <Email className={className}/>
 
     default:
       return null;
