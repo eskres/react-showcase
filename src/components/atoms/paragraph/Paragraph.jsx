@@ -1,6 +1,8 @@
 export default function Paragraph({ className, children }) {    
     let override;
-    className.includes("feedback") ? override = true : override = false
+    if (className) {
+        className.includes("feedback") ? override = true : override = false
+    }
 
     switch (override) {
         case true:
