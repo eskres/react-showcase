@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Subtitle from "../../atoms/subtitle/Subtitle";
 import PomoConfigModal from "./pomoConfigModal/PomoConfigModal";
 import PomoStatusBadge from "./pomoStatusBadge/PomoStatusBadge";
 import PomoControlButtons from "./pomoControlButtons/PomoControlButtons";
 import PomoTimerCountdown from "./pomoTimerCountdown/PomoTimerCountdown";
+import Heading from "../../atoms/headings/Heading";
 
 export default function PomodoroTimer() {
   const [pause, setPause] = useState(true);
@@ -61,7 +61,7 @@ export default function PomodoroTimer() {
       config={config}
       handleSave={handleSave}
     />
-    <Subtitle className="col">
+    <Heading heading={2} className={"col"}>
       Pomodoro Timer
       <PomoStatusBadge
         pause={pause}
@@ -69,7 +69,7 @@ export default function PomodoroTimer() {
         config={config}
         remainingTime={remainingTime}
       />
-    </Subtitle>
+    </Heading>
     <div className="container mb-4">
       <PomoTimerCountdown
         remainingTime={remainingTime}
