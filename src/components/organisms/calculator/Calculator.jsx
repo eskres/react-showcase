@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Decimal from 'decimal.js';
 import toFormat from 'toformat';
 import arrayToDecimal from '../../../utils/arrayToDecimal';
-import CalculatorIcon from '../../atoms/Icons/SVGs/CalculatorIcon';
+import Icon from '../../atoms/Icons/Icon';
 import Button from '../../atoms/button/Button';
 import CalculatorModal from './calculatorModal/CalculatorModal';
 
@@ -183,9 +183,9 @@ export default function Calculator() {
   }
 
   return (
-    <>
+    <div className="container">
       <Button color={"light"} className={"mb-3"} dataBsToggle={"modal"} dataBsTarget={"#calculatorModal"}>
-        <CalculatorIcon/>
+        <Icon icon={"calculator"}/>
         Calculator
       </Button>
       <CalculatorModal
@@ -199,6 +199,6 @@ export default function Calculator() {
         handleDecimal={handleDecimal}
         handleEquals={handleEquals}
       />
-    </>
+    </div>
   )
 }
