@@ -1,4 +1,4 @@
-import ModalHeader from "../modalHeader/ModalHeader";
+import ModalHeader from '../modalHeader/ModalHeader';
 
 export default function Modal({ id, title, body, footer }) {
   return (
@@ -9,9 +9,14 @@ export default function Modal({ id, title, body, footer }) {
           <div className="modal-body">
             {body}
           </div>
-          <div className="modal-footer">
-            {footer}
-          </div>
+          {
+          footer ?
+            <div className="modal-footer">
+              {footer}
+            </div>
+          :
+            null
+          }
         </div>
       </div>
     </div>
