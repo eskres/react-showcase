@@ -1,14 +1,19 @@
-import React from 'react'
-import ToDoApp from './ToDoApp'
-import PomodoroApp from './PomodoroApp'
-import CalculatorApp from './CalculatorApp'
+import ToDoList from './components/organisms/toDoList/ToDoList';
+import PomodoroTimer from './components/organisms/pomodoroTimer/PomodoroTimer';
+import Calculator from './components/organisms/calculator/Calculator';
+import Header from './components/molecules/header/Header';
+import Footer from './components/molecules/footer/Footer';
 
 export default function App() {
   return (
-    <div className='container'>
-      <CalculatorApp/>
-      <PomodoroApp/>
-      <ToDoApp/>
-    </div>
+    <>
+      <Header/>
+      <div className='container'>
+        <Calculator/>
+        <PomodoroTimer/>
+        <ToDoList/>
+      </div>
+      <Footer/>
+    </>
   )
 }
