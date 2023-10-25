@@ -5,6 +5,7 @@ export default function Button({
   type,
   value,
   icon,
+  color,
   className,
   dataBsToggle,
   dataBsTarget,
@@ -17,7 +18,7 @@ export default function Button({
         onClick={onClick}
         type={type ? type : "button"}
         value={value}
-        className={className ? `btn btn-outline-light ${className}` : "btn btn-outline-light"}
+        className={className ? `btn btn-outline-${color} ${className}` : "btn btn-outline-light"}
         data-bs-toggle={dataBsToggle ? dataBsToggle : undefined}
         data-bs-target={dataBsTarget ? dataBsTarget : undefined}
         data-bs-dismiss={dataBsDismiss ? dataBsDismiss : undefined}
