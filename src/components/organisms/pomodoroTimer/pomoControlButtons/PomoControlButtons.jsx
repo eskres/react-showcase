@@ -1,4 +1,4 @@
-import Button from "../../../atoms/button/Button";
+import Button from '../../../atoms/button/Button';
 
 export default function PomoControlButtons({ pause, setPause, setRemainingTime, config }) {
   return (
@@ -7,22 +7,22 @@ export default function PomoControlButtons({ pause, setPause, setRemainingTime, 
         // Conditionally render start and reset or pause buttons
         pause ?
           <div className="col d-flex flex-grow-1">
-            <Button className={"d-flex align-items-center me-2"} onClick={() => setPause(false)} icon="play">
+            <Button color={"light"} className={"d-flex align-items-center me-2"} onClick={() => setPause(false)} icon="play">
               Start
             </Button>
-            <Button onClick={() => {setRemainingTime(config.task); setPause(true);}}>
+            <Button color={"light"} onClick={() => {setRemainingTime(config.task); setPause(true);}}>
               Reset
             </Button>
           </div>
         :
         <div className="col flex-grow-1">
-          <Button className={"d-flex align-items-center me-2"} onClick={() => setPause(true)} icon={"pause"}>
+          <Button color={"light"} className={"d-flex align-items-center me-2"} onClick={() => setPause(true)} icon={"pause"}>
             Pause
           </Button>
         </div>
       }
       <div className="col">
-        <Button className={"d-flex align-items-center h-100"} dataBsToggle={"modal"} dataBsTarget={"#configModal"} onClick={() => {setPause(true)}} icon={"gear"}>
+        <Button color={"light"} className={"d-flex align-items-center h-100"} dataBsToggle={"modal"} dataBsTarget={"#configModal"} onClick={() => {setPause(true)}} icon={"gear"}>
         </Button>
       </div>
     </div>
