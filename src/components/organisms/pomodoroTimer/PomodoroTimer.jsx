@@ -30,7 +30,7 @@ export default function PomodoroTimer() {
   }
 
   useEffect(() => {
-    // Store to-dos in local storage on state change
+    // Store pomodoro config in local storage on state change
     localStorage.setItem("pomoConfig", JSON.stringify(config))
   }, [config])
 
