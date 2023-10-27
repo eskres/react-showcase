@@ -6,8 +6,9 @@ import React from './SVGs/React';
 import Github from './SVGs/Github';
 import LinkedIn from './SVGs/LinkedIn';
 import Email from './SVGs/Email';
+import { IconProps } from 'iconInterfaces';
 
-export default function Icon({ icon, className }) {
+export default function Icon({ icon, className }: IconProps) {
   switch (icon) {
     case "gear":
       return <Gear className={className}/>
