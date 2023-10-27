@@ -1,4 +1,6 @@
-export default function Heading({ heading, className, children }) {
+import { HeadingProps } from "headingsInterfaces"
+
+export default function Heading({ heading, className, children }: HeadingProps): React.JSX.Element | null {
   switch (heading) {
     case 1:
       return <h1 className={className ? `text-white ${className}` : "text-white"}>{children}</h1>
@@ -13,6 +15,6 @@ export default function Heading({ heading, className, children }) {
     case 6:
       return <h6 className={className ? `text-white ${className}` : "text-white"}>{children}</h6>
     default:
-      return;
+      return null;
   }
 }

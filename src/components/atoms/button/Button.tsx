@@ -1,4 +1,5 @@
 import Icon from '../Icons/Icon';
+import { ButtonProps } from "buttonInterfaces"
 
 export default function Button({
   onClick,
@@ -11,7 +12,7 @@ export default function Button({
   dataBsTarget,
   dataBsDismiss,
   children
-}) {
+}: ButtonProps): React.JSX.Element {
 
   return (
     <button 
