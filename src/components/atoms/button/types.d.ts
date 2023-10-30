@@ -7,6 +7,6 @@ declare module "buttonInterfaces" {
     dataBsToggle?: string
     dataBsTarget?: string
     dataBsDismiss?: string
-    children: string
+    children?: string
   }
 }
