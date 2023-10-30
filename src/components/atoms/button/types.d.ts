@@ -1,11 +1,9 @@
 declare module "buttonInterfaces" {
-  export interface ButtonProps {
+  export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any;
-    type?: "button" | "submit" | "reset" | undefined;
-    value: string
     icon?: string
+    iconClassName?: string
     color?: string
-    className?: string
     dataBsToggle?: string
     dataBsTarget?: string
     dataBsDismiss?: string

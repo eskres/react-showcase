@@ -183,7 +183,7 @@ export default function Calculator() {
 
   return (
     <div className="container">
-      <Button color={"light"} className={"mb-3"} dataBsToggle={"modal"} dataBsTarget={"#calculatorModal"} icon={"calculator"}>
+      <Button color={"light"} className={"mb-3"} dataBsToggle={"modal"} dataBsTarget={"#calculatorModal"} icon={"calculator"} iconClassName={"align-top mx-1"}>
         Calculator
       </Button>
       <CalculatorModal
