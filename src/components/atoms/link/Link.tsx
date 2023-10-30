@@ -1,4 +1,6 @@
-export default function Link({ href, className, style, role, ariaLabel, children}) {
+import { LinkProps } from "linkInterfaces";
+
+export default function Link({ href, className, style, role, ariaLabel, children}: LinkProps): React.JSX.Element {
   return (
     <a
       href={href}

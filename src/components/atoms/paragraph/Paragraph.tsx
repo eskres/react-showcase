@@ -1,4 +1,6 @@
-export default function Paragraph({ className, children }) {    
+import { ParagraphProps } from "paragraphInterfaces";
+
+export default function Paragraph({ className, children }: ParagraphProps): React.JSX.Element {    
     let override;
     if (className) {
         className.includes("feedback") ? override = true : override = false
