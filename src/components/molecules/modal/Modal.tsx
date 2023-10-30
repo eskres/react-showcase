@@ -1,6 +1,7 @@
+import { ModalProps } from 'modalInterfaces';
 import ModalHeader from '../modalHeader/ModalHeader';
 
-export default function Modal({ id, title, body, footer }) {
+export default function Modal({ id, title, body, footer }: ModalProps): React.JSX.Element {
   return (
     <div className="modal" id={id} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="modalTitle" aria-hidden="true" data-bs-theme="dark">
       <div className="modal-dialog modal-dialog-centered">
