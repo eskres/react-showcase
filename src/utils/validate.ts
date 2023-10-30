@@ -1,4 +1,4 @@
-export default function validate(e) {
+export default function validate(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     // Tidy classes for validation
     const classes = e.target.classList;
     if (classes) {
