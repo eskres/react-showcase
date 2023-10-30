@@ -1,11 +1,13 @@
 import Icon from '../Icons/Icon';
 import { ButtonProps } from "buttonInterfaces"
+import "./button.css";
 
 export default function Button({
   onClick,
   type,
   value,
   icon,
+  iconClassName,
   color,
   className,
   dataBsToggle,
@@ -24,7 +26,7 @@ export default function Button({
         data-bs-target={dataBsTarget ? dataBsTarget : undefined}
         data-bs-dismiss={dataBsDismiss ? dataBsDismiss : undefined}
     >
-      {icon ? <Icon icon={icon}/> : null}
+      {icon ? <Icon icon={icon} className={iconClassName}/> : null}
       {children}
     </button>
   )
