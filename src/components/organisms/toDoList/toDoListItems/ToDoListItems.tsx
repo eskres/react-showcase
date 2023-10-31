@@ -1,10 +1,10 @@
 import ToDoItem from '../toDoItem/ToDoItem';
 import ToDoEdit from '../toDoEdit/ToDoEdit';
+import * as ToDo from 'toDoListInterfaces';
 
-export default function ToDoListItems({ toDos, delToDo, editToDo }) {
-
+export default function ToDoListItems({ toDos, delToDo, editToDo }: ToDo.ToDoListItemsProps): Array<React.JSX.Element>{
 	return (
-		toDos.map((value) => 
+		toDos.map((value: ToDo.ToDoItem) => 
 			<div className="row mx-0 mt-2 pt-2 border-top gx-2" key={value.id}>
 				{
 					value.edit ?
@@ -13,7 +13,7 @@ export default function ToDoListItems({ toDos, delToDo, editToDo }) {
 							key={value.id}
 							value={value.text}
 							onChange={(e) => {
-									editToDo({...value, text: e.target.value});
+									editToDo({...value, text: (e.target as HTMLTextAreaElement).value});
 									e.target.style.height = `${e.target.scrollHeight}px`;
 							}}
 							onFocus={(e) => {e.target.style.height = `${e.target.scrollHeight}px`}}

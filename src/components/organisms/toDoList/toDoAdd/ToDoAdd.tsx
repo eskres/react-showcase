@@ -3,23 +3,26 @@ import Label from "../../../atoms/label/Label";
 import Button from "../../../atoms/button/Button";
 import { useState, useRef } from "react";
 import Paragraph from "../../../atoms/paragraph/Paragraph";
+import { ToDoAddProps } from "toDoListInterfaces";
 
-export default function ToDoAdd({ id, feedback, setToDos, toDos }) {
+export default function ToDoAdd({ id, feedback, setToDos, toDos }: ToDoAddProps): React.JSX.Element{
 
-  const [text, setText] = useState("");
-  const textRef = useRef(null);
+  const [text, setText] = useState<string>("");
+  const textRef = useRef<HTMLTextAreaElement>(null);
 
   // Handle text area in DOM safely with useRef
-  const resizeTextArea = (height) => {
+  const resizeTextArea = (height: string): void => {
     const textArea = textRef.current
-    textArea.style.height = height
+    if (textArea) {
+      textArea.style.height = height
+    }
   }
 
-  const handleNewToDo = (text) => {
+  const handleNewToDo = (text: string): void => {
     if (text.length >= 2) {
       setToDos([...toDos, {id: text.substring(0, 2).toLowerCase() + Date.now(), text: text, edit: false, done: false}]);
       setText("");
-      resizeTextArea(null);
+      resizeTextArea("0px");
     }
   }
 
@@ -34,9 +37,10 @@ export default function ToDoAdd({ id, feedback, setToDos, toDos }) {
             max={360}
             required={true}
             onChange={(e) => {
-              setText(e.target.value);
+              setText((e.target as HTMLTextAreaElement).value);
               resizeTextArea(`${e.target.scrollHeight}px`)
             }}
+            autofocus={true}
             ref={textRef}
           />
           <Label htmlFor={id}>
@@ -48,9 +52,9 @@ export default function ToDoAdd({ id, feedback, setToDos, toDos }) {
         </div>
       </div>
       <div className="d-grid col-3">
-        <Button onClick={() => {
-            handleNewToDo(text);
-          }}>
+        <Button onClick={() => 
+            handleNewToDo(text)
+          }>
           Save
         </Button>
       </div>

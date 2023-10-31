@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import ToDoAdd from "./toDoAdd/ToDoAdd";
 import ToDoListItems from "./toDoListItems/ToDoListItems"
+import { ToDoItem } from "toDoListInterfaces";
 
 export default function ToDoApp() {
   
-  const [toDos, setToDos] = useState(() => {
+  const [toDos, setToDos] = useState<Array<ToDoItem>>(() => {
     // Get any saved to-dos from local storage
-    const saved = JSON.parse(localStorage.getItem("toDos"));
+    const saved = localStorage.getItem("toDos");
     // Initialise state with saved to-dos if they exist
     if (saved) {
-      return saved.data
+      return JSON.parse(saved).data;
     }
     return [{
       text: "My first to-do",
@@ -19,16 +20,16 @@ export default function ToDoApp() {
     }]
   });
 
-  useEffect(() => {
+  useEffect((): void => {
     // Store to-dos in local storage on state change
     localStorage.setItem("toDos", JSON.stringify({data: toDos}))
   }, [toDos])
 
-  const handleDeleteToDo = (toDoID) => {
+  const handleDeleteToDo = (toDoID: string): void => {
     setToDos(toDos.filter((todo) => todo.id !== toDoID))
   }
 
-  const handleEditToDo = (toDoEdit) => {
+  const handleEditToDo = (toDoEdit: ToDoItem): void => {
     setToDos(toDos.map(toDo => {
       if (toDo.id === toDoEdit.id) {
         return toDoEdit
@@ -56,7 +57,6 @@ export default function ToDoApp() {
         />
         <ToDoListItems
           toDos={toDos}
-          setToDos={setToDos}
           delToDo={handleDeleteToDo}
           editToDo={handleEditToDo}
         />
