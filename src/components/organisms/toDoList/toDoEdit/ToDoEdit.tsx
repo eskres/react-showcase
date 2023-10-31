@@ -1,9 +1,10 @@
 import TextArea from "../../../atoms/textArea/TextArea";
 import Button from "../../../atoms/button/Button";
 import { forwardRef } from "react";
+import { ToDoEditProps } from "toDoListInterfaces";
 
-const ToDoEdit = forwardRef(function ToDoEdit(props, ref) {
-  const { value, onChange, onFocus, autofocus, onClick } = props
+const ToDoEdit = forwardRef(function ToDoEdit(props: ToDoEditProps, ref: React.ForwardedRef<HTMLTextAreaElement>): React.JSX.Element{
+  const { value, onChange, onFocus, onClick } = props
   return (
     <>
         <div className="col-12">
@@ -11,7 +12,7 @@ const ToDoEdit = forwardRef(function ToDoEdit(props, ref) {
               value={value}
               onChange={onChange}
               onFocus={onFocus}
-              autfocus={autofocus}
+              autofocus={true}
               ref={ref}
           />
         </div>
