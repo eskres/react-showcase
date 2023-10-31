@@ -5,8 +5,8 @@ import Paragraph from "../../atoms/paragraph/Paragraph";
 
 export default function InputGroup({ fields, className }: InputGroupProps): Array<React.JSX.Element> {
   return (
-    fields.map((value, index) => 
-      <div className={className} key={index}>
+    fields.map((value) => 
+      <div className={className} key={value.id}>
         <Input
           type={value.type}
           inputMode={value.inputMode}
