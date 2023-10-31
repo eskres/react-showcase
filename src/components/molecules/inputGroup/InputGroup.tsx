@@ -1,8 +1,9 @@
+import { InputGroupProps } from "inputGroupInterfaces";
 import Input from "../../atoms/input/Input";
 import Label from "../../atoms/label/Label";
 import Paragraph from "../../atoms/paragraph/Paragraph";
 
-export default function InputGroup({ fields, className }) {
+export default function InputGroup({ fields, className }: InputGroupProps): Array<React.JSX.Element> {
   return (
     fields.map((value, index) => 
       <div className={className} key={index}>
@@ -23,7 +24,7 @@ export default function InputGroup({ fields, className }) {
           {value.label.content}
         </Label>
         <Paragraph className={value.feedback.className}>
-          {value.feedback.value}
+          {value.feedback.content}
         </Paragraph>
       </div>
     )
