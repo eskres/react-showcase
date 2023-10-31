@@ -13,8 +13,8 @@ const TextArea = forwardRef(function TextArea(props: TextareaProps, ref: React.F
         maxLength={max ? max : undefined}
         required={required}
         onChange={(e) => {onChange?.(e)}}
-        onFocus={onFocus ? (e) => {onFocus(e)} : undefined}
-        onBlur={validate}
+        onFocus={(e) => {onFocus?.(e)}}
+        onBlur={(e) => {validate?.(e)}}
         autoFocus={autoFocus}
         ref={ref}
     />

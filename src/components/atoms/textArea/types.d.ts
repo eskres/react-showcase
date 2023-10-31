@@ -3,5 +3,6 @@ declare module "textareaInterfaces" {
     min?: number;
     max?: number;
     feedback?: boolean
+    autofocus: boolean
   }
 }
