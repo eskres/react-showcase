@@ -4,34 +4,26 @@ import PomoStatusBadge from "./pomoStatusBadge/PomoStatusBadge";
 import PomoControlButtons from "./pomoControlButtons/PomoControlButtons";
 import PomoTimerCountdown from "./pomoTimerCountdown/PomoTimerCountdown";
 import Heading from "../../atoms/headings/Heading";
+import { PomoConfiguration } from "pomodoroInterfaces";
 
-export default function PomodoroTimer() {
-  const [pause, setPause] = useState(true);
-  const [task, setTask] = useState(true);
-  const [config, setConfig] = useState(() => {
+export default function PomodoroTimer(): React.JSX.Element{
+  const [pause, setPause] = useState<boolean>(true);
+  const [task, setTask] = useState<boolean>(true);
+  const [config, setConfig] = useState<PomoConfiguration>(() => {
       // Get any saved config from local storage
-      const saved = JSON.parse(localStorage.getItem("pomConfig"));
+      const saved = localStorage.getItem("pomConfig");
       // Initialise state with saved config if they exist
       if (saved) {
-        return saved
+        return JSON.parse(saved).data;
       }
-      return {task: 25 * 60, break: 5 * 60}
+      return {task: 25 * 60, break: 5 * 60};
     }
   );
-  const [remainingTime, setRemainingTime] = useState(config.task);
+  const [remainingTime, setRemainingTime] = useState<number>(config.task);
 
-  // Save user inputs to timer states
-  const handleSave = (inputs) => {
-    if (inputs.task > 0 && inputs.break > 0) {      
-      setTask(true);
-      setConfig({task: inputs.task * 60, break: inputs.break * 60});
-      setRemainingTime(inputs.task * 60);
-    }
-  }
-
-  useEffect(() => {
+  useEffect((): void => {
     // Store pomodoro config in local storage on state change
-    localStorage.setItem("pomoConfig", JSON.stringify(config))
+    localStorage.setItem("pomoConfig", JSON.stringify(config));
   }, [config])
 
   // For timer and transitioning between task and break
@@ -52,23 +44,27 @@ export default function PomodoroTimer() {
         setTask(prevState => !prevState);
       }
     }, 1000);
-    return () => {clearInterval(timer)}
+    return (() => {clearInterval(timer)});
   }, [pause, remainingTime, task, config]);
 
   return (
   <>
     <PomoConfigModal
       config={config}
-      handleSave={handleSave}
+      setTask={setTask}
+      setConfig={setConfig}
+      setRemainingTime={setRemainingTime}
     />
     <Heading heading={2} className={"col"}>
-      Pomodoro Timer
-      <PomoStatusBadge
-        pause={pause}
-        task={task}
-        config={config}
-        remainingTime={remainingTime}
-      />
+      <>
+        Pomodoro Timer
+        <PomoStatusBadge
+          pause={pause}
+          task={task}
+          config={config}
+          remainingTime={remainingTime}
+        />
+      </>
     </Heading>
     <div className="container mb-4">
       <PomoTimerCountdown
