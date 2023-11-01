@@ -1,8 +1,9 @@
 import Badge from "../../../atoms/badge/Badge";
+import { PomodoroProps } from "pomodoroInterfaces";
 
-export default function PomoStatusBadge({ pause, task, config, remainingTime }) {
+export default function PomoStatusBadge({ pause, task, config, remainingTime }: PomodoroProps): React.JSX.Element | null {
     if (config.task === remainingTime && pause) {
-        return
+        return null;
     }
     // Check whether timer is paused
     if (pause) {

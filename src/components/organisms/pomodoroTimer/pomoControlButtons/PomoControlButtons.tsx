@@ -1,6 +1,7 @@
+import { PomoControlProps } from 'pomodoroInterfaces';
 import Button from '../../../atoms/button/Button';
 
-export default function PomoControlButtons({ pause, setPause, setRemainingTime, config }) {
+export default function PomoControlButtons({ pause, setPause, setRemainingTime, config }: PomoControlProps): React.JSX.Element {
   return (
     <div className="row row-cols-auto">
       {
@@ -22,8 +23,7 @@ export default function PomoControlButtons({ pause, setPause, setRemainingTime, 
         </div>
       }
       <div className="col">
-        <Button color={"light"} className={"d-flex align-items-center h-100"} dataBsToggle={"modal"} dataBsTarget={"#configModal"} onClick={() => {setPause(true)}} icon={"gear"}>
-        </Button>
+        <Button color={"light"} className={"d-flex align-items-center h-100"} dataBsToggle={"modal"} dataBsTarget={"#configModal"} onClick={() => {setPause(true)}} icon={"gear"}/>
       </div>
     </div>
   )
