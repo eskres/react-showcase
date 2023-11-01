@@ -6,6 +6,6 @@ declare module "progressBarInterfaces" {
     height: number;
     striped: boolean;
     animated: boolean;
-    className: string;
+    className?: string;
   }
 }
