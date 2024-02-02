@@ -5,8 +5,8 @@ import Paragraph from '../../atoms/paragraph/Paragraph';
 export default function Header() {
   return (
   <>
-    <header class="container mt-4">
-      <div class='row row-cols-auto d-flex align-items-center justify-content-center justify-content-md-start gx-1'>
+    <header className="container mt-4">
+      <div className='row row-cols-auto d-flex align-items-center justify-content-center justify-content-md-start gx-1'>
         <Icon icon={"react"}/>
         <Heading heading={1} className={"col my-0"}>
           Einar's React Showcase

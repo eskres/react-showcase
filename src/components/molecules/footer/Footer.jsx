@@ -5,10 +5,10 @@ import Paragraph from "../../atoms/paragraph/Paragraph";
 
 export default function Footer() {
   return (
-    <footer class="container mt-5 pt-5">
-      <section id="contact" class="text-center mt-2">
+    <footer className="container mt-5 pt-5">
+      <section id="contact" className="text-center mt-2">
         <Heading heading={3}>Contact</Heading>
-        <div class="m-3 fs-3">
+        <div className="m-3 fs-3">
           <Link
             href={"https://github.com/eskres/react-showcase"}
             className={"icon-link icon-link-hover mx-1"}
