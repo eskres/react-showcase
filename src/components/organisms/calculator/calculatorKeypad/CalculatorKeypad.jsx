@@ -46,12 +46,11 @@ export default function CalculatorKeypad(
 
 
   return (
-    keys.map((value, index) => 
-      <div key={index} className="row g-1 mb-1">
-        {value.map((value, index) => 
-          <div key={index} className={`col d-grid ${value.colClassName}`}>
+    keys.map((row) =>
+      <div key={row.map(k => k.value).join('-')} className="row g-1 mb-1">
+        {row.map((value) =>
+          <div key={value.value} className={`col d-grid ${value.colClassName}`}>
             <Button
-              key={value.value}
               color={value.color}
               className={value.buttonClassName}
               onClick={value.onClick}
