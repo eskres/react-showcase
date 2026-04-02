@@ -11,7 +11,7 @@ const ToDoEdit = forwardRef(function ToDoEdit(props, ref) {
               value={value}
               onChange={onChange}
               onFocus={onFocus}
-              autfocus={autofocus}
+              autoFocus={autofocus}
               ref={ref}
           />
         </div>
