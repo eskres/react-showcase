@@ -22,6 +22,7 @@ You can try out the tools available in my React Showcase by visiting the link ab
 | [Key Learnings](#Key-Learnings) |
 | [Bugs](#Bugs) |
 | [Future Improvements](#Future-Improvements) |
+| [2026 Changes](#2026-Changes) |
 
 ---
 ## Technologies Used
@@ -164,5 +165,22 @@ At this stage, all bugs have been eliminated. However, previous bugs have includ
 ---
 ## Future Improvements
 In the future I would like to refactor the project into TypeScript and collaborate with a UI/UX designer to move away from Bootstrap and have the entire project use custom CSS styling.
+
+---
+## 2026 Changes
+
+Re-deploying this project in 2026 I wanted to address potential security issues, update the dependencies, and bring the deployment up to a standard I would be comfortable hosting on my server. Below is a summary of the changes made.
+
+- **Dependency updates** — Reviewed and updated all dependencies.
+
+- **Removed unused files** — Removed unused files that were left over from create-react-app.
+
+- **Self-hosted fonts** — Replaced Google Fonts CDN dependency with a locally hosted copy of Poppins.
+
+- **General tidying** — Fixed typos, replaced the use of index keys in the calculator keypad and moved the testing libraries into `devDependencies`.
+
+- **Security improvements** — Added a Content Security Policy with security headers handled by Traefik.
+
+- **Docker deployment** — Migrated the project to a Docker container behind a Traefik reverse proxy.
 
 ---
