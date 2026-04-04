@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.react-showcase.tls=true"
       - "traefik.http.routers.react-showcase.middlewares=security-headers@file,rate-limit@file,react-showcase-csp@docker"
       - "traefik.http.services.react-showcase.loadbalancer.server.port=80"
-      - "traefik.http.middlewares.react-showcase-csp.headers.customResponseHeaders.Content-Security-Policy=default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; font-src 'self'; frame-ancestors 'none'"
+      - "traefik.http.middlewares.react-showcase-csp.headers.customResponseHeaders.Content-Security-Policy=default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
 
 networks:
   proxy:
